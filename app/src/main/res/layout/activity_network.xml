@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_network"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.hudezhi.freedom.homeapp.network.NetworkMainActivity">
+
+    <Button
+        android:id="@+id/btn_connectivity_main"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="Connectivity"
+        android:textColor="#ff000000"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_wifi_main"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.01"
+        android:gravity="center"
+        android:text="Wifi"
+        android:textColor="#ff000000"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_wifiP2p_main"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="WifiP2p"
+        android:textColor="#ff000000"
+        android:textSize="20sp" />
+</LinearLayout>

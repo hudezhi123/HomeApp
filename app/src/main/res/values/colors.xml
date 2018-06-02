@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1296db</color>
+    <color name="colorPrimaryDark">#1e1e1e</color>
+    <color name="colorAccent">#1296db</color>
+    <color name="colorTips">#FF4081</color>
+    <color name="colorBaseBlue">#1296db</color>
+    <color name="colorBaseGray">#bfbfbf</color>
+    <color name="colorPressGray">#77bfbfbf</color>
+    <color name="colorRbTextSelected">#1296db</color>
+    <color name="colorRbTextUnselected">#515151</color>
+    <color name="colorTextBlack">#707070</color>
+    <color name="colorTextWhite">#ffffff</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorGreen">#FF44DB12</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="black">#ff000000</color>
+    <color name="cuteblue">#3aaff5</color>
+    <color name="white">#ffffffff</color>
+    <color name="base_color">#FFD4D4D4</color>
+    <color name="pink">#CEFFDDFF</color>
+    <color name="base_color_press">#FFFF8800</color>
+    <color name="textColorPrimary">#ffffff</color>
+    <color name="colorTextSeleted">#CC9966</color>
+    <color name="colorTextUnselected">#afaaaa</color>
+    <color name="baseColor">#CC9966</color>
+    <color name="colorDevideLine">#eeeeee</color>
+    <color name="cardview_dark_background">#FF424242</color>
+</resources>

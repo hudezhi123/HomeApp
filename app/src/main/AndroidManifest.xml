@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hudezhi.freedom.homeapp">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".audio.AudioActivity" />
+        <activity android:name=".video.VideoActivity" />
+        <activity
+            android:name=".video.activity.PlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name=".study.MainStudyActivity" />
+        <activity android:name=".pay.MainPayActivity" />
+        <activity android:name=".im.MainCommunicationActivity" />
+        <activity android:name=".book.MainReadActivity" />
+        <activity android:name=".more.MainMoreActivity" />
+        <activity android:name=".person.view.LoginActivity" />
+        <activity android:name=".news.MainNewsActivity" />
+        <activity android:name=".audio.AudioMainActivity" />
+        <activity
+            android:name=".audio.activity.MusicPlayingActivity"
+            android:theme="@style/animationofactivity" />
+        <activity android:name=".audio.LocalMusicActivity" />
+
+        <service
+            android:name=".audio.service.PlayMusicService"
+            android:exported="true" />
+
+        <activity android:name=".audio.activity.CriticizeActivity" />
+        <activity android:name=".map_baidu.BaiduMapMainActivity" />
+        <activity android:name=".map_gaode.GaodeMapMainActivity" />
+        <activity android:name=".map_baidu.activity.BaseBaiduActivity" />
+        <activity android:name=".map_baidu.activity.AroundMapActivity" />
+        <activity android:name=".map_baidu.activity.WearMapActivity" />
+        <activity android:name=".map_baidu.activity.SearchMapActivity" />
+        <activity android:name=".map_baidu.activity.OfflineMapActivity" />
+        <activity android:name=".map_baidu.activity.CalculatorMapActivity" />
+        <activity android:name=".map_baidu.activity.CharacterMapActivity" />
+        <activity android:name=".map_baidu.activity.RoomMapActivity" />
+        <activity android:name=".map_baidu.activity.SetDownMapActivity" />
+        <activity android:name=".map_baidu.activity.PositionChangeMapActivity" />
+        <activity android:name=".map_baidu.activity.RideMapActivity" />
+        <activity android:name=".map_baidu.activity.ListenerMapActivity" />
+        <activity android:name=".map_baidu.activity.CloudMapActivity" />
+        <activity android:name=".person.view.RegisterActivity" />
+        <activity android:name=".person.MainPrivateActivity" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="SwSro3GffPoM9WhyYqo1SBV7b1IyUzGu" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="14f97f5e30b1c0ff1e640644ba6cbba3" />
+
+        <!-- Mob ShareSDK and SMSSSDK -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
+            <intent-filter>
+                <data android:scheme="line.1477692153" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="20154debadeb2" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="a41be85f6333f3864402e2176e6cd0ae" />
+
+        <activity android:name=".map_baidu.activity.BasePOIActivity" />
+        <activity android:name=".person.view.PrivateModuleInfoActivity" />
+        <activity android:name=".person.view.OBFActivity" />
+        <activity android:name=".person.view.ReceiptListActivity" />
+        <activity android:name=".live_video.view.LoginView" />
+        <activity android:name=".live_video.view.activity.LoginView" />
+        //环信
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1138170815115091#hudezhi-homeapp" />
+
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".live_video.view.activity.GuideActivity" />
+        <activity android:name=".live_video.view.activity.RegisterView" />
+        <activity android:name=".live_video.view.activity.SearchActivity" />
+        <activity android:name=".bluetooth.BlueToothActivity" />
+        <activity android:name=".bluetooth.Communication" />
+        <activity android:name=".bluetooth.ChatActivity" />
+        <activity android:name=".video.MainVideoActivity" />
+        <activity android:name=".video.activity.DownloadActivity" />
+
+        <service
+            android:name=".video.service.DownloadService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".bluetooth.chat.BluetoothActivity" />
+        <activity android:name=".bluetooth.activity.LocalBluetoothActivity" />
+        <activity android:name=".network.WifiActivity" />
+        <activity android:name=".network.ConnectivityActivity" />
+        <activity android:name=".network.NetworkMainActivity" />
+        <activity android:name=".network.WifiP2pActivity" />
+        <activity android:name=".nfc.NFCPopActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.nfc.action.NDEF_DISCOVERED" /> -->
+
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+
+
+            <!-- <data android:mimeType="text/plain" /> -->
+            <!-- </intent-filter> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.nfc.action.TAG_DISCOVERED" /> -->
+
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".nfc.NfcMainActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".nfc.AppListActivity"></activity>
+
+    </application>
+
+</manifest>

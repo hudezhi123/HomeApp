@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:id="@+id/img_down_arrow_finish_playing_titlebar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/arrow_down_white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/img_down_arrow_finish_playing_titlebar"
+        android:layout_toStartOf="@+id/relative_nothing"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_song_name_playing_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="虫儿飞"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_singer_title_playing_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="鹿晗 - 虫儿飞"
+            android:textColor="@color/colorTextWhite" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_nothing"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/img_criticize_playing_titlebar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/critcize_icon_white" />
+
+        <TextView
+            android:id="@+id/text_criticize_count_playing_titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/text_message_unread"
+            android:padding="2dp"
+            android:text="99+"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

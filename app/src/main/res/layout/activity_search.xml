@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hudezhi.freedom.homeapp.live_video.view.activity.SearchActivity">
+
+    <EditText
+        android:id="@+id/btn_search_live"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:drawableLeft="@mipmap/abc_ic_search_api_mtrl_alpha"
+        android:gravity="left|center_vertical"
+        android:hint="@string/anchor_roomnum_link"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:textColorHint="#ffaaaaaa"
+        android:transitionName="tran" />
+</RelativeLayout>

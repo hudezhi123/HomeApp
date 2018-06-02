@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_baidu_map_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hudezhi.freedom.homeapp.map_baidu.BaiduMapMainActivity">
+
+    <TextView
+        android:id="@+id/text_title_baidu"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="百度地图功能模块"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="18sp" />
+
+    <GridView
+        android:id="@+id/gridview_baidu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3" />
+</LinearLayout>

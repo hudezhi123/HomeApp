@@ -1,0 +1,216 @@
+16.5 近场通信
+    Android2.3 开始引进近场通信(Near Field Communication,NFC)API.NFC是一种非接触式技术，用于在短距离
+(通常小于4厘米)内少量数据传输。
+    NFC传输可以在两个支持NFC的设备或者一个设备和一个NFC标签之间进行通信。NFC标签既包括在扫描时会传输
+URL的被动标点，也包括复杂的系统，例如NFC支付方案中使用的那些(如Google Wallet)。
+    Android中NFC消息是通过使用NFC Data Exchange Format(NDEF)处理的。
+    <uses-permission android:name="android.permission.NFC />
+
+16.5.1 读取NFC标签
+    当一个Android设备用于扫描一个NFC标签时，其系统将使用自己的标签分派系统解码传入的有效载荷。这个标
+签分派系统会分析标签，将数据归类，使用Intent启动一个应用程序来接受数据。
+    为使用应用程序能够接受NFC数据，需要添加一个Activity Intent Filter来监听以下某个Intent动作：
+       NfcAdapter.ACTION_NDEF_DISCOVERED 这是优先级最高的、也是最具体的NFC消息动作。使用这个动作的
+     Intent包括MEME类型和/或URI数据。最好的做法是只要有可能，就监听这个广播，因为其extra数据允许更加
+     具体地定义要响应的标签。
+       NfcAdapter.ACTION_TECH_DISCOVERED 当NFC技术已知、但是标签不包括数据(或者包含的数据不能被映射为
+      MEME类型或URI)时广播这个动作。
+       NfcAdapter.ACTION_TAG_DISCOVERED 如果从位置技术收到一个标签，则使用此Intent动作广播该标签。
+
+     程序清单16-27如何注册一个Activity，使其只响应对于作者的博客的URI的NFC标签
+     <activity name=".BlogViewer">
+        <intent-filter>
+            <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:scheme="http"
+                  android:host="blog.radioactiveyak.com" />
+        </intent-filter>
+     </activity>
+
+       NFC Intent Filter尽可能地具体是一种很好的做法，这样可以将能够响应指定NFC标签应用程序减到最少，
+    从而提供最好、最快的用户体验。
+       很多时候，应用程序使用Intent数据/URI和MIME类型就足够做出合适的响应。但是，需要时，可以通过
+    Intent(启动Activity的Intent)内的extra使用NFC消息提供的有效载荷。
+       NfcAdapter.EXTRA_TAG extra包含一个代表扫描的标签的原始Tag对象。NfcAdapter.EXTRA_TNDEF_MESSAGES
+    extra中包含了一个NDEF Messages的数组。
+        程序清单16-28 提取NFC标签的有效荷载
+
+        String action = getIntent().getAction();
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
+           Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+           for(int i=0;i<messages.length();i++){
+                NdefMessage message = (NdefMessage)messages[i]
+                NdefRecord[] records = message.getRecords();
+                for(NdefRecord record:records){
+                    // todo : 处理单独的记录
+                }
+           }
+        }
+
+
+    16.5.2 使用前台分派系统
+   默认情况下，标签分派系统会根据Intent的解析过程确定那个应用程序收到特定的标签，在Intent解析过程中，
+位于前台的Activity并不比其他的应用程序优先级高；因此，如果几个应用程序位于前台。通过使用前台分派系统，
+可以指定特定的一个具有高优先级的Activity使得当他位于前台时，成为默认接受标签的应用程序。使用NFCAdapter
+的enable/disableForegroundDispatch方法可以切换前台分派系统。只用当一个Activity位于前台时才能使用前台
+分派系统，所以分别在onResume和onPause处理程序内启用和禁用该系统，如程序16-29所示。这个例子展示了
+enableForegroundDispatch的参数。
+    程序清单 16-29 使用前台分派系统
+    public void onPause(){
+        super.onPause();
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    public void onResume(){
+        super.onResume();
+        nfcAdapter.enableForegroundDispatch(this,
+            //用于打包Tag Intent的Intent
+            nfcPendingIntent,
+            //用于声明想要拦截的Intent的Intent Filter
+            intentFilterArray,
+            //想要处理的标签技术的数组
+            techListArray);
+        String action = getIntent().getAction();
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
+            processIntent(getIntent());
+        }
+    }
+
+    Intent Filter数据应该声明想要拦截的URI或MIME类型---如果收到任何标签的类型与这些条件不匹配，那么
+将会被使用标准的标签分配系统处理他们，为了确保良好的用户体验，只指定你的应用程序处理的标签内容很重要。
+    通过显示指定想要处理的技术(通常是添加NfcF类)，可以进一步细化标签。
+    最后NFCAdapter会填充PendingIntent，以便把收到的标签直接传输给你的应用程序。
+    程序清单 16-30 显示了为了启用应用程序清单16-29 中的前台分派系统所需要使用的PendingIntent、MIME类
+型数组和技术数组。
+    程序清单 16-30 配置前台分派系统
+    PendingIntent nfcPendingIntent;
+    IntentFilter[] filterArray;
+    String[][] tecListsArray;
+
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        int requestCode = 0;
+        int flags = 0;
+        Intent nfcIntent = new Intent(this,getClass());
+        ndcIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        nfcPendingIntent = PendingIntent.getActivity(this,requestCode,nfcIntent,flags);
+        //创建局限为URI或MIME类型的IntentFilter，以从中拦截TAG扫描
+        IntentFilter tagIntentFilter = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        tagIntentFilter.addDataScheme("http");
+        tagIntentFilter.addDataAuthority("blog.radioactiveyak.com",null);
+        intentFilterArray = new IntentFilter[]{tagIntentFilter};
+        //创建要处理的技术数组
+        techListsArray = new String[][]{
+            new String[]{
+                NfcF.class.getName()
+            }
+        };
+    }
+
+
+    16.5.3 Android Beam 简介
+    Android4.0(API level 14)中引入的Android Beam提供了一个简单的API。应用程序可以使用该API在使用NFC
+的连个设备之间传输数据，只要将这两个设备背靠背放在一起即可，例如原生的联系人、浏览器和Youtube应用程
+序就是用Android Beam来与其他设备共享当前联系人、网页和视频。
+    为了使用Android Beam传输消息，你的应用程序应该位于前台，而且接收数据的设备不能出于锁住状态。
+    通过将两个支持NFC的Android设备放到一起，可以启动Android Beam。用户会看到一个"touch to beam"
+(触摸以传输)UI，此时他们可以选择把前台应用程序"beam"传输到另一个设备。
+    当设备被放倒一起时，Android Beam会使用NFC在设备之间推送消息。
+    通过在应用程序内启用Android Beam，可以定义所传输的消息的有效荷载。如果没有自定义消息，应用程序的
+默认动作会在目标设备上启动它。如果目标设备上没有安装你的应用程序，那么GooglePlaye会启动，并显示你的
+应用程序的消息页面。
+    为定义应用程序传输的消息，需要在manifest文件中请求NFC权限。
+    <users-permission android:name="android.permission.NFC" />
+    定义自己的有效载荷的过程如下：
+    (1)创建一个包含NdefRecord的NdefMessage对象，NdefRecord中包含了消息的有效载荷。
+    (2)将你的NdefMessage作为Android Beam的有效载荷分配给NFC Adapter
+    (3)配置应用程序来监听传入的Android Beam消息
+
+    1.创建Android Beam消息
+    要创建一个新的NdefMessageMessage，需要创建一个NdefMessage对象，并在其中创建至少一个NdefRecord，
+用于包含你想要传递给目标设备上的应用程序的有效载荷。。
+    创建新的NdefRecord时，必须指定他表示的记录类型、一个MIME类型、一个ID和和有效载荷。有几种公共的
+NdefRecord类型，可以用在Android Beam中来传递数据。要注意，他们总是应该作为第一条记录添加到要传输的消
+息中。
+    使用NdefRecord.TNF_MIME_MEDIA类型可以传输绝对URI：
+    NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI,
+            "http://blog.radioactiveyak.com".getBytes(Charset.forName("US_ASCLL")),
+            new byte[0],new byte[0]);
+    这是使用AndroidBeam传输的最常见的NdefRecord，因为收到的Intent和任何启动Activity的Intent具有一样
+的形式。用来确定特定的Activity应该接受哪些NFC消息的IntentFilter可以使用scheme、host、PathPrefix属性。
+    如果需要传输的消息所包含的消息不容易被解释为URI，NdefRecord.TNF_MIME_MEDIA类型支持创建一个应用程
+序特定的MIME类型，并包含相关的有效载荷。
+    byte[] mimeType = "application/com.paad.nfcbeam".getBytes(Charset.forName("US_ASCLL"));
+    byte[] tadId = new Byte[0];
+    byte[] payload = "Not a URI".getBytes(Charset.forName("US_ASCLL"));
+    NdefRecord mimeRecord = new NdefRecord(
+        NdefRecord.TNF_MIME_MEDIA,
+        mimeType,
+        tagId,
+        payload);
+    在Android Developer Guide(http://developer.android.com/guide/topics/nfc.html#creating-records)中
+可以找到关于可用的NDEF记录类型和如何使用他们的详细信息。
+    包含Android Application Record(AAR)形式的NdefRecord是一种很好的做法。还可以保证你的应用程序会在
+目标设备上启动；如果目标设备上没有安装你的应用程序，则会启动GooglePlayStore，让用户Android它。
+    要创建一个AAR Ndef Record，需要使用NdefRecord类型createApplicationRecord静态方法，并指定应用程序
+的包名，如程序清单 16-31 所示：
+    程序清单 16-31 创建一条Android Beam NDEF消息
+    String payload = "Two to beam across";
+    String mimeType = "application/com.paad.nfcbeam";
+    byte[] mimeBytes = mimeType.getBytes(Charset.forName("US-ASCLL"));
+    NdefMessage nfcMessage = new NdefMessage(new NdefRecord[]{
+        //创建NFC的有效载荷
+        new NdefRecord(
+            NdefRecord.TNF_MIME_MEDIA,
+            mimeBytes,
+            payload.getBytes()
+        ),
+        //添加AAR
+        NdefRecord.createApplicationRecord("com.paad.nfcbeam")
+    });
+
+    2.分配Android Beam的有效荷载
+    使用NFC Adapter可以指定Android Beam的有效载荷，通过使用NfcAdapter类的getDefaultAdapter静态方法，
+可以访问默认的NFCAdapter：
+    NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+    有两种方法可以把程序清单 16-31 中创建的NDEF Message指定为应用程序的Android Beam有效载荷。最简单
+的方法是使用setNdefPushMessage方法来分配当Android Beam启动时总是应该从当前Activity发送消息。通常，这
+种分配只需要在Activity的onResume中完成一次。
+    nfcAdapter.setNdefPushMessage(ndefMessage,this);
+    刚好的方法是使用setNdefPushMessageCallback方法。该处理程序在消息被传输之前立即触发，允许你根据应
+用程序当前的上下文，例如，正在看哪个视频，浏览那个网页，或者那个地图坐标居中--动态设置有效载荷的内容，
+如程序清单16-32所示。
+    nfcAdapter.setNdefPushMessageCallback(new CreateNdefMessageCallback(){
+        public NdefMessage createNdefMessage(NfcEvent event){
+            String payload = "Beam me up,Android!\n\n"+"Beam Time: "+System.currentTimeMillis();
+            NdefMessage message = createMessage(payload);
+            return message;
+        }
+    },this);
+
+    如果使用回调处理程序同时设置了静态消息和动态消息，那么只有动态消息会被传输。
+
+    3.接受Android Beam消息
+    Android Beam消息的接收方式与本章前面介绍的NFC标签十分类似，为了接受在前一个打包的有效载荷，首先
+要在Activity中添加一个IntentFilter，如程序清单16-33所示：
+    <intent-filter>
+        <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="application/com.paad.nfcbeam" />
+    </intent-filter>
+
+    Android Beam启动后，接收设备上的Activity就会被启动；如果接收设备上没有安装你爹应用程序，那么
+Google Play Store将会启动，将允许用户下载你的应用程序。
+    传输的数据会使用一个具有NfcAdapter.ACTION_NDEF_DISCOVERED动作的Intent传输给你的Activity，其有效
+载荷可作为一个NdfMessage数组用于存储对应的NfcAdapter.EXTRA_NDEF_MESSAGES extra,如程序清单16-34所示：
+    程序清单 16-34 提取Android Beam有效载荷。
+    Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+    NdefMessage message =(NdefMessage) messages[0];
+    NdefRecord record = message.getRecords()[0];
+    String payload = new String[record.getPayload()];
+
+    通常，有效载荷字符串是一个URI的形式，可以像对待Intent内封装的数据一样提取和处理它，以显示合适的
+视频，网页或地图坐标。
+
+

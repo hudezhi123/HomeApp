@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_connctivity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hudezhi.freedom.homeapp.network.ConnectivityActivity">
+
+    <TextView
+        android:id="@+id/text_network_into"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FF000000"
+        android:textSize="16sp" />
+</RelativeLayout>

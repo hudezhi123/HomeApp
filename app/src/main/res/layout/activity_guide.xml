@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_guide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hudezhi.freedom.homeapp.live_video.view.activity.GuideActivity">
+
+    <LinearLayout
+        android:id="@+id/toolbar_search_bar_guide"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="30dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_logo_qianfan"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/ic_home_logo"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/linear_task_find"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/button_task_find"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:background="#00000000"
+                    android:drawableTop="@mipmap/find_icon_work"
+                    android:onClick="findOnClick"
+                    android:text="@string/assignment"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="13dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2">
+
+            <Button
+                android:id="@+id/btn_search_live"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/livefragment_searchbutton_style"
+                android:drawableLeft="@mipmap/abc_ic_search_api_mtrl_alpha"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:text="@string/anchor_roomnum_link"
+                android:textColor="#ff929696"
+                android:transitionName="tran" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/img_my_focus_live"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"
+            android:src="@mipmap/ic_home_title_focus" />
+
+        <Button
+            android:id="@+id/button_shop_find"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="#00000000"
+            android:drawableTop="@mipmap/find_icon_mall"
+            android:onClick="findOnClick"
+            android:text="@string/mall"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_net_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar_search_bar_guide"
+        android:background="@color/pink"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/warnning_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="网络连接不可用" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#afaaaa" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup_tab_guide_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <RadioButton
+                android:id="@+id/radio_live_main"
+                style="@style/radiogroupTabChildMain"
+                android:checked="true"
+                android:drawableTop="@drawable/radiogroup_child_live_selector"
+                android:text="@string/live" />
+
+            <RadioButton
+                android:id="@+id/radio_ranklist_main"
+                style="@style/radiogroupTabChildMain"
+                android:drawableTop="@drawable/radiogroup_child_ranklist_selector"
+                android:text="@string/rank_list" />
+
+            <TextView style="@style/radiogroupTabChildMain" />
+
+            <RadioButton
+                android:id="@+id/radio_find_main"
+                style="@style/radiogroupTabChildMain"
+                android:drawableTop="@drawable/radiogroup_child_find_selector"
+                android:text="@string/find" />
+
+            <RadioButton
+                android:id="@+id/radio_mine_main"
+                style="@style/radiogroupTabChildMain"
+                android:drawableTop="@drawable/radiogroup_child_mine_selector"
+                android:text="@string/mine" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentcontainer_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linear_bottom_bar"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linear_net_bar" />
+</RelativeLayout>

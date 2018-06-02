@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_video"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hudezhi.freedom.homeapp.video.VideoActivity">
+
+    <include
+        android:id="@+id/titlebar"
+        layout="@layout/commen_title_bar" />
+
+    <FrameLayout
+        android:id="@+id/video_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/group_video"
+        android:layout_below="@+id/titlebar" />
+
+    <RadioGroup
+        android:id="@+id/group_video"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/guide_bar_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_video_local"
+            style="@style/rb_style"
+            android:checked="true"
+            android:drawableTop="@drawable/rb_video_local_selector"
+            android:text="@string/local" />
+
+
+        <RadioButton
+            android:id="@+id/radio_video_net"
+            style="@style/rb_style"
+            android:drawableTop="@drawable/rb_video_net_selector"
+            android:text="@string/net" />
+
+        <RadioButton
+            android:id="@+id/radio_video_mine"
+            style="@style/rb_style"
+            android:drawableTop="@drawable/rb_video_mine_selector"
+            android:text="@string/mine" />
+    </RadioGroup>
+</RelativeLayout>

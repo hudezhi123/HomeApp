@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/grid_bg_style"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/img_module"
+        style="@style/grid_img_style" />
+
+    <TextView
+        android:id="@+id/text_module"
+        style="@style/grid_text_style"
+        android:text="@string/audio" />
+
+</LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_local_bluetooth"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hudezhi.freedom.homeapp.bluetooth.activity.LocalBluetoothActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorBaseBlue">
+
+        <TextView
+            android:id="@+id/text_local_bluetooth_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="当前设备蓝牙"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/img_turn_on_bluetooth"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/turn_on_icon" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorBaseBlue">
+
+        <TextView
+            android:id="@+id/text_local_bluetooth_address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="蓝牙地址"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/img_allow_be_discovery"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/ic_discovery" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_scan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorBaseBlue"
+        android:drawableTop="@mipmap/ic_discovery"
+        android:gravity="center_horizontal"
+        android:text="扫描附近蓝牙设备"
+        android:textColor="@color/colorTextWhite" />
+
+    <ListView
+        android:id="@+id/listview_all_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
